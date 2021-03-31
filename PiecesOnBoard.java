@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class PiecesOnBoard extends Group {
 
-    private Group[][] pieces = new Group[8][8];
+    private Group[][] pieces = new Group[8][8]; // db: Piece[][] instead of Group[][] or not
 
     public PiecesOnBoard() {
         for (int i = 0; i < 8; i++) {

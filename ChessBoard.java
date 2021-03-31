@@ -13,7 +13,7 @@ class ChessBoard extends Group {
 
     private static final int SIZE_OF_SINGLE_BOX_IN_BOARD = 200;
 
-    ChessBoard() {
+    public ChessBoard() {
         for (int i = -4; i < 4; i++) {
             for (int j = -4; j < 4; j++) {
                 int stepX = i * SIZE_OF_SINGLE_BOX_IN_BOARD;

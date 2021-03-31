@@ -5,19 +5,21 @@ import javafx.scene.Group;
 import java.util.ArrayList;
 
 public class PiecesOnBoard extends Group {
-    public PiecesOnBoard() {
-        ArrayList<Pawn> whitePawns = new ArrayList<>(8);
-        for (int i = 0; i < 8; i++) {
-            whitePawns.add(Pawn.createWhitePawn());
-            whitePawns.get(i).movePawn(-4 + i, 2);
-            getChildren().add(whitePawns.get(i));
-        }
 
-        ArrayList<Pawn>  blackPawns = new ArrayList<>(8);
+    private Group[][] pieces = new Group[8][8];
+
+    public PiecesOnBoard() {
         for (int i = 0; i < 8; i++) {
-            blackPawns.add(Pawn.createBlackPawn());
-            blackPawns.get(i).movePawn(-4 + i, -3);
-            getChildren().add(blackPawns.get(i));
+            final Pawn pawn = Pawn.createWhitePawn();
+            pawn.movePawn(-4 + i, 2);
+            getChildren().add(pawn);
+            pieces[1][i] = pawn;
+        }
+        for (int i = 0; i < 8; i++) {
+            final Pawn pawn = Pawn.createBlackPawn();
+            pawn.movePawn(-4 + i, -3);
+            getChildren().add(pawn);
+            pieces[6][i] = pawn;
         }
 
         }

@@ -7,7 +7,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 
-public class Pawn implements Piece{
+public class Pawn extends Group{
 
     private Hardware hv = HardwareFactory.getHardware();
 
@@ -55,26 +55,25 @@ public class Pawn implements Piece{
         return cylinder;
     }
 
-    public void movePawn(int stepX, int stepY) {
-        this.translateXProperty().set(stepX*200);
-        this.translateYProperty().set(stepY*200);
+    public void setToBoard(String letter, int number) {
+        int stepX = letter.charAt(0)-96;
+        int stepY = number;
+        this.translateXProperty().set(stepX*200-1000);
+        this.translateYProperty().set((-stepY+4)*200);
 
     }
 
-    @Override
-    public void move(String position) {
-        char b = position.charAt(0);
-        char c = position.charAt(1);
-//        int let = letter.charAt(0)-96;
-//        TODO: MORE CAREFULLY
-    }
+//    @Override
+//    public void move(String position) {
+//        char b = position.charAt(0);
+//        char c = position.charAt(1);
+////        int let = letter.charAt(0)-96;
+////        TODO: MORE CAREFULLY
+//    }
 
-    @Override
-    public Hardware getHardware() {
-        return hv.getGroup();
-    }
+//    @Override
+//    public Hardware getHardware() {
+//        return hv.getGroup();
+//    }
 
 }
-
-
-

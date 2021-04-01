@@ -1,5 +1,8 @@
 package Board;
 
+import Board.chessPieces.Hardware;
+import Board.chessPieces.HardwareFactory;
+//import Board.geometryPrimitive.Sphere;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -28,18 +31,19 @@ public class MultipleBoxes extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         final ChessBoard chessBoard = new ChessBoard();
-        final Group chess = new Group();
+        final Hardware chess  = HardwareFactory.getHardware();
         final Group piecesOnBoard = new PiecesOnBoard();
-        chess.getChildren().add(chessBoard);
-        chess.getChildren().add(piecesOnBoard);
+        chess.addFigure(chessBoard);
+        chess.addFigure(piecesOnBoard);
+
         final Camera camera = new PerspectiveCamera();
-        final Scene scene = new Scene (chess, WIDTH, HEIGHT, true);
+        final Scene scene = new Scene (chess.getGroup(), WIDTH, HEIGHT, true);
         scene.setFill(Color.SILVER);
         scene.setCamera(camera);
 
-        chess.translateXProperty().set(WIDTH / 2 + 150);
-        chess.translateYProperty().set(HEIGHT / 2);
-        chess.translateZProperty().set(3500);
+        chess.setX(WIDTH / 2 + 150);
+        chess.setY(HEIGHT / 2);
+        chess.setZ(3500);
 
 
         initMouseControl(chess, scene, primaryStage);
@@ -51,11 +55,11 @@ public class MultipleBoxes extends Application {
 
 
 
-        private void initMouseControl(Group chess, Scene scene, Stage stage){
+        private void initMouseControl(Hardware chess, Scene scene, Stage stage){
         final Rotate xRotate;
         final Rotate yRotate;
         final Rotate zRotate;
-        chess.getTransforms().addAll(
+        chess.addAllRotations(
             xRotate = new Rotate (0, Rotate.X_AXIS),
             yRotate = new Rotate (0, Rotate.Y_AXIS),
             zRotate = new Rotate (0, Rotate.Z_AXIS)
@@ -81,7 +85,7 @@ public class MultipleBoxes extends Application {
 
         stage.addEventHandler(ScrollEvent.SCROLL, event -> {
             double delta = event.getDeltaY();
-            chess.translateZProperty().set(chess.getTranslateZ() + delta);
+            chess.setZ(chess.getTranslateZ() + delta);
         });
     }
 

@@ -1,5 +1,7 @@
 package Board.geometryPrimitive;
 
+import Board.chessPieces.Hardware;
+import Board.chessPieces.HardwareFactory;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.paint.PhongMaterial;
@@ -10,12 +12,7 @@ import javafx.scene.transform.Rotate;
 
 public class Cone extends Group {
 
-    int rounds = 360;
-    int r1 = 80;
-    int r2 = 20;
-    int h = 200;
-
-    public Cone(String resName) {
+    public Cone(String resName, int rounds, int r1, int r2, int h) {
         Group cone = new Group();
         PhongMaterial material = new PhongMaterial();
         material.setDiffuseMap(new Image(Cone.class.getResourceAsStream(resName)));
@@ -89,8 +86,8 @@ public class Cone extends Group {
         meshView.setMaterial(material);
         //meshView.setDrawMode(DrawMode.LINE);
         cone.getChildren().addAll(meshView);
-        Rotate r1 = new Rotate(180, Rotate.X_AXIS);
-        cone.getTransforms().add(r1);
+        Rotate r = new Rotate(180, Rotate.X_AXIS);
+        cone.getTransforms().add(r);
         getChildren().addAll(cone);
 
         cone.translateZProperty().set(-220);

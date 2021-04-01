@@ -12,7 +12,7 @@ public class Pawn extends Group{
     private Hardware hv = HardwareFactory.getHardware();
 
     public Pawn(String resName) {
-        final Cone cone = new Cone(resName);
+        final Cone cone = new Cone(resName, 360, 80, 20, 200);
         final Sphere sphere = prepareSphere(resName);
         final Cylinder cylinder = prepareCylinder(resName);
         getChildren().add(sphere);

@@ -3,6 +3,7 @@ package Board;
 import Board.chessPieces.Hardware;
 import Board.chessPieces.HardwareFactory;
 //import Board.geometryPrimitive.Sphere;
+import Board.geometryPrimitive.Cone;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -32,6 +33,7 @@ public class MultipleBoxes extends Application {
     public void start(Stage primaryStage) throws Exception {
         final ChessBoard chessBoard = new ChessBoard();
         final Hardware chess  = HardwareFactory.getHardware();
+
         final Group piecesOnBoard = new PiecesOnBoard();
         chess.addFigure(chessBoard);
         chess.addFigure(piecesOnBoard);

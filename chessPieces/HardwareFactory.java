@@ -32,11 +32,6 @@ public class HardwareFactory {
             }
 
             @Override
-            public void addFigure(Hardware figure) {
-                g.getChildren().add((Node) figure);
-            }
-
-            @Override
             public void setX(double x) {
                 g.translateXProperty().set(x);
             }

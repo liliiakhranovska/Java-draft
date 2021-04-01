@@ -10,7 +10,6 @@ public interface Hardware {
     void addFigure(Group figure);
     void addFigure(Shape3D figure);
     void addFigure(MeshView figure);
-    void addFigure(Hardware figure);
     void setX(double x);
     void setY(double y);
     void setZ(double z);

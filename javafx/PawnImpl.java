@@ -10,8 +10,6 @@ import javafx.scene.transform.Rotate;
 
 public class PawnImpl extends Group implements Pawn {
 
-//    private Hardware hv = HardwareFactory.getHardware();
-
     public PawnImpl(String resName) {
         final Cone cone = new Cone(resName, 360, 80, 20, 200);
         final Sphere sphere = prepareSphere(resName);
@@ -21,12 +19,12 @@ public class PawnImpl extends Group implements Pawn {
         getChildren().add(cone);
     }
 
-    public static PawnImpl createWhitePawn () {
+    public static PawnImpl createWhitePawn() {
         PawnImpl whitePawnImpl = new PawnImpl("/resources/white.jpg");
         return whitePawnImpl;
     }
 
-    public static PawnImpl createBlackPawn () {
+    public static PawnImpl createBlackPawn() {
         PawnImpl whitePawnImpl = new PawnImpl("/resources/black.jpg");
         return whitePawnImpl;
     }
@@ -57,24 +55,11 @@ public class PawnImpl extends Group implements Pawn {
     }
 
     public void setToBoard(String letter, int number) {
-        int stepX = letter.charAt(0)-96;
+        int stepX = letter.charAt(0) - 96;
         int stepY = number;
-        this.translateXProperty().set(stepX*200-1000);
-        this.translateYProperty().set((-stepY+4)*200);
+        this.translateXProperty().set(stepX * 200 - 1000);
+        this.translateYProperty().set((-stepY + 4) * 200);
 
     }
-
-//    @Override
-//    public void move(String position) {
-//        char b = position.charAt(0);
-//        char c = position.charAt(1);
-////        int let = letter.charAt(0)-96;
-////        TODO: MORE CAREFULLY
-//    }
-
-//    @Override
-//    public Hardware getHardware() {
-//        return hv.getGroup();
-//    }
 
 }

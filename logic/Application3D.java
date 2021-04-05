@@ -6,4 +6,7 @@ public interface Application3D {
     Environment3D getEnvironment3D();
 
     ChessBoard getChessBoard();
+
+    PiecesOnBoard getPiecesOnBoard();
+
 }

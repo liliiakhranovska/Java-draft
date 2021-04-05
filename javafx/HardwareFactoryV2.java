@@ -30,10 +30,6 @@ public class HardwareFactoryV2 {
                 return null;
             }
 
-//            @Override
-//            public ChessBoard createChessBoard() {
-//                return null;
-//            }
         };
     }
 }

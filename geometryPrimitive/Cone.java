@@ -82,14 +82,11 @@ public class Cone extends Group {
         MeshView meshView = new MeshView();
         meshView.setMesh(mesh);
         meshView.setMaterial(material);
-        //meshView.setDrawMode(DrawMode.LINE);
         cone.getChildren().addAll(meshView);
         Rotate r = new Rotate(180, Rotate.X_AXIS);
         cone.getTransforms().add(r);
         getChildren().addAll(cone);
 
         cone.translateZProperty().set(-220);
-
-
     }
 }

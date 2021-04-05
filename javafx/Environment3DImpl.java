@@ -6,6 +6,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.*;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.MeshView;
+import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
@@ -15,7 +17,6 @@ public class Environment3DImpl extends Group implements Environment3D {
 
     private double anchorX, anchorY;
     private double anchorAngleX = 0;
-    private double anchorAngleY = 0;
     private double anchorAngleZ = 0;
     private final DoubleProperty angleX = new SimpleDoubleProperty(-30);
     private final DoubleProperty angleY = new SimpleDoubleProperty(0);
@@ -24,51 +25,40 @@ public class Environment3DImpl extends Group implements Environment3D {
 
     public Environment3DImpl(Stage primaryStage) {
         final Camera camera = new PerspectiveCamera();
-        final Scene scene = new Scene (this, WIDTH, HEIGHT, true);
+        final Scene scene = new Scene(this, WIDTH, HEIGHT, true);
         scene.setFill(Color.SILVER);
         scene.setCamera(camera);
-        this.setX(WIDTH / 2 + 150);
-        this.setY(HEIGHT / 2);
-        this.setZ(3500);
+        this.translateXProperty().set(WIDTH / 2 + 150);
+        this.translateYProperty().set(HEIGHT / 2);
+        this.translateZProperty().set(3500);
         primaryStage.setTitle("Chess");
         primaryStage.setScene(scene);
         primaryStage.show();
         initMouseControl(this, scene, primaryStage);
 
         final ChessBoardImpl chessBoard = new ChessBoardImpl();
-        this.addFigure(chessBoard);
+        final PiecesOnBoardImpl piecesOnBoard = new PiecesOnBoardImpl();
+        piecesOnBoard.initBoard();
+        final RookImpl rookImpl = new RookImpl();
+        MeshView rook = rookImpl.getRook();
+        Rotate rotate = new Rotate(-90, 0, 0, 0, Rotate.X_AXIS);
+        rook.getTransforms().add(rotate);
+
+//        this.getChildren().add(chessBoard);
+        this.getChildren().add(piecesOnBoard);
+        this.getChildren().add(rook);
 
     }
 
-    public void setX(double x) {
-        this.translateXProperty().set(x);
-    }
 
-    public void setY(double y) {
-        this.translateYProperty().set(y);
-    }
-
-    public void setZ(double z) {
-        this.translateZProperty().set(z);
-    }
-
-    public void addAllRotations(Rotate xRotate, Rotate yRotate, Rotate zRotate) {
-        this.getTransforms().addAll(xRotate, yRotate, zRotate);
-    }
-
-    public void addFigure(Group figure) {
-        this.getChildren().add(figure);
-    }
-
-
-    private void initMouseControl(Group chess, Scene scene, Stage stage){
+    private void initMouseControl(Group chess, Scene scene, Stage stage) {
         final Rotate xRotate;
         final Rotate yRotate;
         final Rotate zRotate;
-        this.addAllRotations(
-                xRotate = new Rotate (0, Rotate.X_AXIS),
-                yRotate = new Rotate (0, Rotate.Y_AXIS),
-                zRotate = new Rotate (0, Rotate.Z_AXIS)
+        this.getTransforms().addAll(
+                xRotate = new Rotate(0, Rotate.X_AXIS),
+                yRotate = new Rotate(0, Rotate.Y_AXIS),
+                zRotate = new Rotate(0, Rotate.Z_AXIS)
         );
         xRotate.angleProperty().bind(angleX);
         yRotate.angleProperty().bind(angleY);
@@ -79,7 +69,6 @@ public class Environment3DImpl extends Group implements Environment3D {
             anchorX = event.getSceneX();
             anchorY = event.getSceneY();
             anchorAngleX = angleX.get();
-            anchorAngleY = angleY.get();
             anchorAngleZ = angleZ.get();
 
         });
@@ -91,7 +80,7 @@ public class Environment3DImpl extends Group implements Environment3D {
 
         stage.addEventHandler(ScrollEvent.SCROLL, event -> {
             double delta = event.getDeltaY();
-            this.setZ(chess.getTranslateZ() + delta);
+            this.translateZProperty().set(chess.getTranslateZ() + delta);
         });
     }
 

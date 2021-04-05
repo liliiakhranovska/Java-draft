@@ -2,6 +2,8 @@ package Board.javafx;
 
 import Board.logic.PiecesOnBoard;
 import javafx.scene.Group;
+import javafx.scene.shape.MeshView;
+import javafx.scene.shape.TriangleMesh;
 
 public class PiecesOnBoardImpl extends Group implements PiecesOnBoard {
 
@@ -9,7 +11,6 @@ public class PiecesOnBoardImpl extends Group implements PiecesOnBoard {
     final String[] letters = new String[] {"a", "b", "c", "d", "e", "f", "g", "h"};
 
     public PiecesOnBoardImpl() {
-
     }
 
     @Override

@@ -1,5 +1,6 @@
-package Board;
+package Board.javafx;
 
+import Board.logic.ChessBoard;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -9,11 +10,11 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.text.Font;
 
-class ChessBoard extends Group {
+class ChessBoardImpl extends Group implements ChessBoard {
 
     private static final int SIZE_OF_SINGLE_BOX_IN_BOARD = 200;
 
-    public ChessBoard() {
+    public ChessBoardImpl() {
         for (int i = -4; i < 4; i++) {
             for (int j = -4; j < 4; j++) {
                 int stepX = i * SIZE_OF_SINGLE_BOX_IN_BOARD;
@@ -141,12 +142,11 @@ class ChessBoard extends Group {
 
     private static Box prepareBox(int stepX, int stepY, String resName) {
         final PhongMaterial material = new PhongMaterial();
-        material.setDiffuseMap(new Image(ChessBoard.class.getResourceAsStream(resName)));
+        material.setDiffuseMap(new Image(ChessBoardImpl.class.getResourceAsStream(resName)));
         final Box box = new Box(SIZE_OF_SINGLE_BOX_IN_BOARD, SIZE_OF_SINGLE_BOX_IN_BOARD, SIZE_OF_SINGLE_BOX_IN_BOARD);
         box.setMaterial(material);
         box.translateXProperty().set(stepX);
         box.translateYProperty().set(stepY);
         return box;
     }
-
 }

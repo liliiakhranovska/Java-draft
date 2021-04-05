@@ -1,17 +1,18 @@
-package Board.chessPieces;
+package Board.javafx;
 
 import Board.geometryPrimitive.Cone;
+import Board.logic.Pawn;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 
-public class Pawn extends Group{
+public class PawnImpl extends Group implements Pawn {
 
-    private Hardware hv = HardwareFactory.getHardware();
+//    private Hardware hv = HardwareFactory.getHardware();
 
-    public Pawn(String resName) {
+    public PawnImpl(String resName) {
         final Cone cone = new Cone(resName, 360, 80, 20, 200);
         final Sphere sphere = prepareSphere(resName);
         final Cylinder cylinder = prepareCylinder(resName);
@@ -20,20 +21,20 @@ public class Pawn extends Group{
         getChildren().add(cone);
     }
 
-    public static Pawn createWhitePawn () {
-        Pawn whitePawn = new Pawn("/resources/white.jpg");
-        return whitePawn;
+    public static PawnImpl createWhitePawn () {
+        PawnImpl whitePawnImpl = new PawnImpl("/resources/white.jpg");
+        return whitePawnImpl;
     }
 
-    public static Pawn createBlackPawn () {
-        Pawn whitePawn = new Pawn("/resources/black.jpg");
-        return whitePawn;
+    public static PawnImpl createBlackPawn () {
+        PawnImpl whitePawnImpl = new PawnImpl("/resources/black.jpg");
+        return whitePawnImpl;
     }
 
 
     public Sphere prepareSphere(String resName) {
         final PhongMaterial material = new PhongMaterial();
-        material.setDiffuseMap(new Image(Pawn.class.getResourceAsStream(resName)));
+        material.setDiffuseMap(new Image(PawnImpl.class.getResourceAsStream(resName)));
         final Sphere sphere = new Sphere(80);
         sphere.setMaterial(material);
         sphere.translateXProperty().set(0);
@@ -44,7 +45,7 @@ public class Pawn extends Group{
 
     public Cylinder prepareCylinder(String resName) {
         final PhongMaterial material = new PhongMaterial();
-        material.setDiffuseMap(new Image(Pawn.class.getResourceAsStream(resName)));
+        material.setDiffuseMap(new Image(PawnImpl.class.getResourceAsStream(resName)));
         final Cylinder cylinder = new Cylinder(90, 40, 8);
         cylinder.setMaterial(material);
         cylinder.translateXProperty().set(0);

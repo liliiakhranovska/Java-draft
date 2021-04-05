@@ -1,7 +1,5 @@
 package Board.geometryPrimitive;
 
-import Board.chessPieces.Hardware;
-import Board.chessPieces.HardwareFactory;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.paint.PhongMaterial;

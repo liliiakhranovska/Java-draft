@@ -6,8 +6,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.*;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.MeshView;
-import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
@@ -39,14 +37,8 @@ public class Environment3DImpl extends Group implements Environment3D {
         final ChessBoardImpl chessBoard = new ChessBoardImpl();
         final PiecesOnBoardImpl piecesOnBoard = new PiecesOnBoardImpl();
         piecesOnBoard.initBoard();
-        final RookImpl rookImpl = new RookImpl();
-        MeshView rook = rookImpl.getRook();
-        Rotate rotate = new Rotate(-90, 0, 0, 0, Rotate.X_AXIS);
-        rook.getTransforms().add(rotate);
-
-//        this.getChildren().add(chessBoard);
+        this.getChildren().add(chessBoard);
         this.getChildren().add(piecesOnBoard);
-        this.getChildren().add(rook);
 
     }
 

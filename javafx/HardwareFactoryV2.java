@@ -20,16 +20,6 @@ public class HardwareFactoryV2 {
                 return app.getEnvironment3D();
             }
 
-            @Override
-            public Pawn createWhitePawn() {
-                return null;
-            }
-
-            @Override
-            public Pawn createBlackPawn() {
-                return null;
-            }
-
         };
     }
 }

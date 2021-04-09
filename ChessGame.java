@@ -4,7 +4,7 @@ import Board.javafx.HardwareFactoryV2;
 import Board.logic.Application3D;
 import Board.logic.HardwareV2;
 
-public class MultipleBoxes {
+public class ChessGame {
 
     public static void main(String[] args) {
         final HardwareV2 hw = HardwareFactoryV2.getHardware();

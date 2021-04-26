@@ -1,5 +1,8 @@
 package Board.logic;
 
+import Board.javafx.PieceImpl;
+
 public interface PiecesOnBoard {
-    void initBoard();
+    void insertPiecesToDefaultBoardMatrix();
+    void putPiecesToDefaultBoard();
 }

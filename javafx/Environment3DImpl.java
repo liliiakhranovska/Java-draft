@@ -1,6 +1,7 @@
 package Board.javafx;
 
 import Board.logic.Environment3D;
+import Board.logic.PiecesOnBoardImpl;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.*;
@@ -35,10 +36,16 @@ public class Environment3DImpl extends Group implements Environment3D {
         initMouseControl(this, scene, primaryStage);
 
         final ChessBoardImpl chessBoard = new ChessBoardImpl();
-        final PiecesOnBoardImpl piecesOnBoard = new PiecesOnBoardImpl();
-        piecesOnBoard.initBoard();
+        chessBoard.insertCellsToMatrix();
+        chessBoard.addToGroup();
+        chessBoard.setCellsToBoard();
+        chessBoard.addBoardFrame();
         this.getChildren().add(chessBoard);
-        this.getChildren().add(piecesOnBoard);
+
+        final PiecesOnBoardImpl pieces = new PiecesOnBoardImpl();
+        pieces.insertPiecesToDefaultBoardMatrix();
+        pieces.putPiecesToDefaultBoard();
+        this.addGameBoardPieces(pieces);
 
     }
 
@@ -74,6 +81,20 @@ public class Environment3DImpl extends Group implements Environment3D {
             double delta = event.getDeltaY();
             this.translateZProperty().set(chess.getTranslateZ() + delta);
         });
+    }
+
+
+    public void addGameBoardPieces(PiecesOnBoardImpl p) {
+        PieceImpl[][] pieces = p.getPieces();
+        for (int i = 0; i < 8; i++) {
+            for (int k = 0; k < 8; k++) {
+                if (pieces[i][k] != null){
+                    this.getChildren().add(pieces[i][k]);
+                }
+            }
+        }
+
+
     }
 
 }

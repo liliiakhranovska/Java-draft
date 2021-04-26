@@ -14,7 +14,6 @@ public class Application3DImpl extends Application implements Application3D {
     @Override
     public void start(Stage primaryStage) throws Exception {
         env = new Environment3DImpl(primaryStage);
-
     }
 
     @Override

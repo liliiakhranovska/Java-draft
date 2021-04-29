@@ -2,11 +2,13 @@ package Board.javafx;
 
 import Board.fileManagement.ReadPointsByName;
 import Board.logic.Piece;
+import Board.logic.PiecesOnBoardImpl;
 import javafx.animation.FadeTransition;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.Bloom;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -17,6 +19,8 @@ import javafx.scene.shape.TriangleMesh;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
+import java.util.Arrays;
+
 import static jdk.nashorn.internal.objects.NativeString.trim;
 
 public class PieceImpl extends Group implements Piece {
@@ -24,8 +28,6 @@ public class PieceImpl extends Group implements Piece {
     private String color;
     private String name;
     private int[] position;
-
-    BoxImpl box = new BoxImpl();
 
     TriangleMesh pieceMesh = new TriangleMesh();
     ReadPointsByName readPointsByNameInst = new ReadPointsByName("coordinates.txt");
@@ -87,40 +89,95 @@ public class PieceImpl extends Group implements Piece {
         piece.getTransforms().add(rotate);
 
 
-//        piece.setOnMouseClicked(event -> {
-//            ChessBoardImpl.insertCellsToMatrix();
-//            ChessBoardImpl.addToGroup();
-//            ChessBoardImpl.setCellsToBoard();
-//            int[] pos = this.getPositionOfPiece();
-//            ChessBoardImpl.selectBox(pos[0],pos[1],"/resources/green.png");
-//            this.getChildren().add(ChessBoardImpl.cells[pos[0]][pos[1]]);
-//        });
+        Canvas selection = selectPiece();
+        selection.setOpacity(1);
+//        getChildren().add(selection);
 
 
-        piece.setOnMouseClicked(event -> {
-            final Canvas selection = selectPiece(0, 0);
-            final FadeTransition ft = new FadeTransition(Duration.millis(1000), selection);
-            ft.setFromValue(1.0);
-            ft.setToValue(0.0);
-            ft.play();
-            getChildren().add(selection);
+//        PieceImpl[][] piecesOnBoard = PiecesOnBoardImpl.getPieces();
+
+        Group possibleMoves = selectPossibleMoves(coordinates);
+        possibleMoves.setOpacity(0);
+        possibleMoves.getChildren().add(selection);
+        getChildren().add(possibleMoves);
+
+        FadeTransition transition = new FadeTransition(Duration.millis(1), possibleMoves);
+        transition.setFromValue(0.0);
+        transition.setToValue(1.0);
+
+
+//        FadeTransition transition = new FadeTransition(Duration.millis(1), selection);
+//        transition.setFromValue(0.0);
+//        transition.setToValue(1.0);
+
+        piece.hoverProperty().addListener((obs, wasHover, isHover) -> {
+            transition.setRate(isHover ? 1.0 : -1.0);
+            transition.play();
+//            System.out.println(Arrays.toString(getPositionOfPiece()));
         });
+        possibleMoves.setOpacity(transition.getFromValue());
 
         getChildren().add(piece);
 
     }
 
-    public Canvas selectPiece(int x, int y){
-        Canvas selection = new Canvas(1000, 1000);
+//        piece.hoverProperty().addListener((obs, wasHover, isHover) -> {
+//            transition.setRate(isHover ? 1.0 : -1.0);
+//            transition.play();
+////            System.out.println(Arrays.toString(getPositionOfPiece()));
+//        });
+//        selection.setOpacity(transition.getFromValue());
+//
+//        getChildren().add(piece);
+//
+//    }
+
+    public String getPieceName (){
+        return name;
+    }
+
+    public String getPieceColor (){
+        return color;
+    }
+
+    public Canvas selectPiece(){
+        Canvas selection = new Canvas(200, 200);
         GraphicsContext gc = selection.getGraphicsContext2D();
         gc.setStroke(Color.BLUE);
         gc.setLineWidth(20);
-        gc.strokeRoundRect(200, 200, 200, 200, 50, 50);
-        selection.setTranslateX(-300);
-        selection.setTranslateY(-300);
+        gc.strokeRoundRect(0, 0, 200, 200, 50, 50);
+        selection.setTranslateX(-100);
+        selection.setTranslateY(-100);
         selection.setTranslateZ(-101);
+//        selectPossibleMoves(coordinates);
         return selection;
     }
+
+    int[][] coordinates = {
+            {0, 2},
+            {0, 3}
+    };
+
+
+    public Group selectPossibleMoves(int[][] coordinates){
+        Group possibleMovesSelection = new Group();
+        for (int[] coordinate: coordinates) {
+//            System.out.println(Arrays.toString(coordinate));
+            int x = coordinate[0];
+            int y = coordinate[1];
+            Canvas selection = new Canvas(200, 200);
+            GraphicsContext gc = selection.getGraphicsContext2D();
+            gc.setStroke(Color.BLUE);
+            gc.setLineWidth(20);
+            gc.strokeRoundRect(0, 0, 200, 200, 50, 50);
+            selection.setTranslateX(-100 + 200*x);
+            selection.setTranslateY(-300+ 200*y);
+            selection.setTranslateZ(-101);
+            possibleMovesSelection.getChildren().add(selection);
+        }
+        return possibleMovesSelection;
+    }
+
 
     public void setToBoard(char letter, int number) {
         int stepX = letter - 96;

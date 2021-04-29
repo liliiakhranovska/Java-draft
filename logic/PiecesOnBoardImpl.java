@@ -4,7 +4,7 @@ import Board.javafx.PieceImpl;
 import javafx.scene.transform.Rotate;
 
 public class PiecesOnBoardImpl implements PiecesOnBoard {
-    PieceImpl[][] pieces = new PieceImpl[8][8];
+    static PieceImpl[][] pieces = new PieceImpl[8][8];
 
     String resBlack = "brown.jpg";
     String resWhite = "white.jpg";
@@ -39,7 +39,7 @@ public class PiecesOnBoardImpl implements PiecesOnBoard {
         pieces[4][7] = new PieceImpl("king", resBlack);
     }
 
-    public PieceImpl[][] getPieces() {
+    public static PieceImpl[][] getPieces() {
         return pieces;
     }
 
